@@ -2,6 +2,19 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8>
       <v-card min-width="600px">
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="6000"
+          top
+          right
+          tile
+          color="blue darken-1"
+        >
+          {{ message }}
+          <v-btn fab dark small color="white" @click="snackbar = false">
+            <v-icon color="black">close</v-icon>
+          </v-btn>
+        </v-snackbar>
         <v-card-title>
           <h1>Vue chat</h1>
         </v-card-title>
@@ -41,7 +54,9 @@ export default {
   },
   data: () => ({
     valid: true,
+    snackbar: false,
     name: '',
+    message: '',
     nameRules: [
       v => !!v || 'Введите имя',
       v => (v && v.length <= 10) || 'Имя не должно превышать 16 символов',
@@ -49,6 +64,16 @@ export default {
     room: '',
     roomRules: [v => !!v || 'Введите комнату'],
   }),
+  mounted() {
+    const { message } = this.$route.query
+    if (message === 'noUser') {
+      this.message = 'Write data!'
+    } else if (message === 'leftChat') {
+      this.message = 'You leave from chat!'
+    }
+
+    this.snackbar = !!this.message
+  },
   sockets: {
     connect() {
       console.log('socket connected')

@@ -1,6 +1,6 @@
 <template>
   <div class="c-wrap">
-    <div class="c-chat"></div>
+    <div class="c-chat" ref="chatBlock"></div>
     <message
       v-for="m in messages"
       :key="m.id"
@@ -25,6 +25,13 @@ export default {
     return {
       title: `Room ${this.user.room}`,
     }
+  },
+  watch: {
+    messages() {
+      setTimeout(() => {
+        this.$refs.chatBlock.scrollTop = this.$refs.chatBlock.scrollHeight
+      })
+    },
   },
   components: {
     Message,

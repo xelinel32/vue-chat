@@ -8,7 +8,7 @@
             <v-list-tile-title>{{ u.name }}</v-list-tile-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-icon :color="u.id === 2 ? 'primary' : 'grey'"
+            <v-icon :color="u.id === user.id ? 'primary' : 'grey'"
               >chat_bubble</v-icon
             >
           </v-list-tile-action>
@@ -36,26 +36,18 @@ export default {
   data() {
     return {
       drawer: true,
-      users: [
-        {
-          id: 1,
-          name: 'Artem',
-        },
-        {
-          id: 2,
-          name: 'Vlad',
-        },
-      ],
     }
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'users']),
   },
   methods: {
     ...mapMutations(['CLEAR_DATA']),
     exit() {
-      this.$router.push('/?message=leftChat')
-      this.CLEAR_DATA()
+      this.$socket.emit('USER_LEFT', this.user.id, () => {
+        this.$router.push('/?message=leftChat')
+        this.CLEAR_DATA()
+      })
     },
   },
 }
