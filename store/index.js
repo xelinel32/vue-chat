@@ -11,10 +11,7 @@ export const mutations = {
     state.user = {}
     state.messages = []
   },
-}
-
-export const actions = {
-  SOCKET_NEW_MESSAGE(ctx, data) {
-    console.log('Messege received', data)
+  SOCKET_NEW_MESSAGE(state, message) {
+    state.messages.push(message)
   },
 }
