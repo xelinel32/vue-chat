@@ -6,7 +6,7 @@
       :key="m.id"
       :name="m.name"
       :text="m.text"
-      owner
+      :owner="m.id === user.id"
     />
     <div class="c-form">
       <chat-form />

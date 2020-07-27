@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
 .system {
-  margin-bottom: 1rem;
+  margin: 1rem 0 1rem;
   p {
     margin-bottom: 1rem;
   }
